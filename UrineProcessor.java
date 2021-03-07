@@ -1,12 +1,12 @@
 public class UrineProcessor {
-    public Integer urine = 0;
+    public int urine = 0;
 
-    public Integer takeUrine() {
+    public int takeUrine() {
         urine++;
         return urine;
     }
 
-    public Integer provideProcessedUrine() {
+    public int provideProcessedUrine() {
         // wait
         urine--;
         return urine;
