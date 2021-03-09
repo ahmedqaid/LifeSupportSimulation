@@ -1,7 +1,7 @@
 import java.util.Random;
 import java.util.concurrent.Semaphore;
 
-public class UrineProcessor extends Thread {
+public class UrineProcessor {
     public volatile int urine = 0;
 
     synchronized public int takeUrine() {
@@ -25,31 +25,12 @@ public class UrineProcessor extends Thread {
     }
 
     public int provideProcessedUrine() {
-        // wait
         try {
-            Thread.sleep(new Random().nextInt(3000 - 1000) + 1000);
+            Thread.sleep(new Random().nextInt(100));
         } catch (Exception e) {
         }
-        urine--;
-        return urine;
-    }
-
-    public void run() {
-
-        // while (true) {
-        // // try {
-        // // System.out.println("WAITING");
-        // // this.wait();
-        // // System.out.println("NONWAITING");
-        // // } catch (Exception e) {
-        // // e.printStackTrace();
-        // // }
-
-        // try {
-        // Thread.sleep(new Random().nextInt(3000 - 1000) + 1000);
-        // } catch (Exception e) {
-        // }
-        // System.out.println("------------Urine Added: " + takeUrine());
-        // }
+        int ur = urine;
+        urine = 0;
+        return ur;
     }
 }

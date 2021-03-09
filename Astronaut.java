@@ -14,22 +14,20 @@ public class Astronaut extends Thread {
     }
 
     public void run() {
-        while (true) {
+        while (SpaceStation.on) {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(new Random().nextInt(4000 - 1000) + 1000);
             } catch (Exception e) {
             }
-            if (og.oxygen > 0) { //
-                System.out.println(id + "|Oxygen Used: " + og.provideOxygen());
-                System.out.println(id + "|Water Vapor Exhaled: " + wp.takeWater(1)); // should be less
-            }
-            int probability = new Random().nextInt(4);
+            int probability = new Random().nextInt(6);
             if (probability == 0) {
-                System.out.println(id + "|Urinating: " + up.takeUrine()); //
-                if (wp.water > 0) {
-                    System.out.println(id + "|Drinking: " + wp.provideCleanWater());
-                }
+                System.out.println(id + " | Urinating: " + up.takeUrine()); //
             }
+            int probability2 = new Random().nextInt(6);
+            if (probability2 == 0) {
+                System.out.println(id + " | Drinking: " + wp.provideCleanWater(1));
+            }
+
         }
     }
 }
