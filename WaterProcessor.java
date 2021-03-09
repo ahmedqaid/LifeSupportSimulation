@@ -35,11 +35,19 @@ public class WaterProcessor extends Thread{
             try {
                 Thread.sleep(new Random().nextInt(5000-2000) + 2000);
             } catch(Exception e) {}
-            System.out.println("Water Added (Condensated): " + takeWater(1));
+            // System.out.println("Water Added (Condensated): " + takeWater(1));
             int urineAmount = up.urine;
-            if (urineAmount > 0) {
+            synchronized (up) {
+                try {
+                    up.wait();
+                } catch(Exception e) { e.printStackTrace();}
+                // if (urineAmount > 0) {
                 System.out.println("Water Added (Purified): " + takeWater(up.urine));
                 up.urine -= urineAmount;
+                synchronized (this) {
+                    notify();
+                }
+                // }
             }
         }
     }
