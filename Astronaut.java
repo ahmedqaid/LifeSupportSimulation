@@ -1,6 +1,8 @@
+import java.security.InvalidParameterException;
 import java.util.Random;
+import java.util.concurrent.Callable;
 
-public class Astronaut extends Thread {
+public class Astronaut implements Callable<Integer> {
     UrineProcessor up;
     WaterProcessor wp;
     OxygenGenerator og;
@@ -13,21 +15,22 @@ public class Astronaut extends Thread {
         this.id = id;
     }
 
-    public void run() {
+    public Integer call() throws InvalidParameterException {
         while (SpaceStation.on) {
             try {
                 Thread.sleep(new Random().nextInt(4000 - 1000) + 1000);
             } catch (Exception e) {
             }
-            int probability = new Random().nextInt(6);
+            int probability = new Random().nextInt(6); // A probability of 17% of urinating
             if (probability == 0) {
-                System.out.println(id + " | Urinating: " + up.takeUrine()); //
+                System.out.println("[Astronaut " + id + "] Urinating: " + up.takeUrine());
             }
-            int probability2 = new Random().nextInt(6);
+            int probability2 = new Random().nextInt(6); // A probability of 17% of drinking water
             if (probability2 == 0) {
-                System.out.println(id + " | Drinking: " + wp.provideCleanWater(1));
+                System.out.println("[Astronaut " + id + "] Drinking: " + wp.provideCleanWater(1));
             }
 
         }
+        return 1;
     }
 }

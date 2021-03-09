@@ -6,9 +6,9 @@ public class UrineProcessor {
 
     synchronized public int takeUrine() {
 
-        Semaphore s = new Semaphore(1);
+        Semaphore semaphore = new Semaphore(SpaceStation.ASTRONAUTS/5);
         try {
-            s.acquire();
+            semaphore.acquire();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -17,7 +17,7 @@ public class UrineProcessor {
         } catch (Exception e) {
         }
         urine++;
-        s.release();
+        semaphore.release();
         synchronized (this) {
             notify();
         }

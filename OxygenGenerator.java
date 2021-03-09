@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class OxygenGenerator extends Thread {
+public class OxygenGenerator implements Runnable {
     volatile public int oxygen = 10;
     public WaterProcessor wp;
 
@@ -16,20 +16,21 @@ public class OxygenGenerator extends Thread {
     }
 
     synchronized public int provideOxygen(int amount) {
-        if (oxygen-amount < 10) {
+        if (oxygen - amount < 10) { // Asynchronous event
             System.out.println(SpaceStation.ANSI_YELLOW + "Oxygen levels declining!" + SpaceStation.ANSI_RESET);
             oxygen -= amount;
-            makeOxygen(1);
-        }
-        else if (oxygen-amount < 0) {
+            makeOxygen(1); // More Oxygen to be made urgently
+            System.out.println(SpaceStation.ANSI_GREEN + "Oxygen Added (Recovered): " + oxygen + SpaceStation.ANSI_RESET);
+        } else if (oxygen - amount <= 0) {
             System.out.println(SpaceStation.ANSI_RED + "Oxygen levels critical!" + SpaceStation.ANSI_RESET);
-            oxygen = oxygen - amount +(amount-oxygen);        
+            oxygen = oxygen - amount + (amount - oxygen);
         } else {
             oxygen -= amount;
         }
         return oxygen;
     }
 
+    @Override
     public void run() {
         while (SpaceStation.on) {
 
@@ -51,8 +52,8 @@ public class OxygenGenerator extends Thread {
             if (wp.water > 0) {
                 System.out.println("Oxygen Added: " + makeOxygen(0.5));
             }
-            System.out.println("Oxygen Released: " + provideOxygen(SpaceStation.ASTRONAUTS)); //
-            SpaceStation.oxygenInAir += SpaceStation.ASTRONAUTS; //////////
+            System.out.println("Oxygen Released: " + provideOxygen(SpaceStation.ASTRONAUTS));
+            SpaceStation.oxygenInAir += SpaceStation.ASTRONAUTS;
         }
     }
 }
