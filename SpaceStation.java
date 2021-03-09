@@ -8,10 +8,6 @@ public class SpaceStation {
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_YELLOW = "\u001B[33m";
     public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_BLUE = "\u001B[34m";
-    public static final String ANSI_PURPLE = "\u001B[35m";
-    public static final String ANSI_CYAN = "\u001B[36m";
-    public static final String ANSI_WHITE = "\u001B[37m";
 
     public static void main(String args[]) {
         long beforeUsedMem=Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
@@ -34,9 +30,6 @@ public class SpaceStation {
         
         long afterUsedMem=Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
         long actualMemUsed=afterUsedMem-beforeUsedMem;
-        try {
-            Thread.sleep(1000); //
-        } catch (Exception e) {}
         System.out.println("Memory Usage: " + actualMemUsed);
     }
 }
