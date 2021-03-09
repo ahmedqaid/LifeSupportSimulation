@@ -28,6 +28,7 @@ public class UrineProcessor {
         try {
             Thread.sleep(new Random().nextInt(100));
         } catch (Exception e) {
+            e.printStackTrace();
         }
         int ur = urine;
         urine = 0;
