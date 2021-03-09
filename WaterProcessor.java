@@ -37,6 +37,7 @@ public class WaterProcessor implements Runnable {
             try {
                 Thread.sleep(new Random().nextInt(3000 - 1000) + 1000);
             } catch (Exception e) {
+                e.printStackTrace();
             }
             synchronized (up) {
                 try {
