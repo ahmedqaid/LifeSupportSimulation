@@ -16,14 +16,14 @@ public class OxygenGenerator extends Thread {
     }
 
     synchronized public int provideOxygen(int amount) {
-        if (oxygen - amount < 10) { // Asynchronous event
+        if (oxygen - amount <= 0) {
+            System.out.println(SpaceStation.ANSI_RED + "Oxygen levels critical!" + SpaceStation.ANSI_RESET);
+            oxygen = oxygen - amount + (amount - oxygen);
+        } else if (oxygen - amount < 10) { // Asynchronous event
             System.out.println(SpaceStation.ANSI_YELLOW + "Oxygen levels declining!" + SpaceStation.ANSI_RESET);
             oxygen -= amount;
             makeOxygen(1); // More Oxygen to be made urgently
             System.out.println(SpaceStation.ANSI_GREEN + "Oxygen Added (Recovered): " + oxygen + SpaceStation.ANSI_RESET);
-        } else if (oxygen - amount <= 0) {
-            System.out.println(SpaceStation.ANSI_RED + "Oxygen levels critical!" + SpaceStation.ANSI_RESET);
-            oxygen = oxygen - amount + (amount - oxygen);
         } else {
             oxygen -= amount;
         }
@@ -38,7 +38,7 @@ public class OxygenGenerator extends Thread {
                     try {
                         wp.wait();
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        // e.printStackTrace();
                     }
                 }
             }
@@ -46,7 +46,7 @@ public class OxygenGenerator extends Thread {
             try {
                 Thread.sleep(new Random().nextInt(2000 - 1000) + 1000);
             } catch (Exception e) {
-                e.printStackTrace();
+                // e.printStackTrace();
             }
 
             if (wp.water > 0) {
