@@ -14,7 +14,7 @@ public class SpaceStation {
     public static final String ANSI_GREEN = "\u001B[32m";
 
     public static void main(String args[]) {
-        long beforeUsedMem = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+        // long beforeUsedMem = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
 
         UrineProcessor up = new UrineProcessor();
         WaterProcessor wp = new WaterProcessor(up);
@@ -37,8 +37,8 @@ public class SpaceStation {
         exec.shutdown();
         pool.shutdown();
         on = false;
-        long afterUsedMem = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
-        long actualMemUsed = afterUsedMem - beforeUsedMem;
-        System.out.println("Memory Usage: " + actualMemUsed);
+        // long afterUsedMem = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+        // long actualMemUsed = afterUsedMem - beforeUsedMem;
+        // System.out.println("Memory Usage: " + actualMemUsed);
     }
 }
